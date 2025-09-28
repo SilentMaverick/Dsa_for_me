@@ -1,0 +1,52 @@
+/** class Solution {
+    public:
+    int lengthOfLongestSubstring(string s) {
+        set<int> charset;
+        int left = 0;
+        int maxlength = 0;
+
+        for(int i = 0 ; i < s.size() ; i++){
+//in c++ the count function defines that is there still a value in the set we made
+            while(charset.count(s[i])){
+//erases is just like remove function
+                charset.erase(s[left]);
+                left++;
+            }
+            charset.insert(s[i]);
+            maxlength = max(maxlength , i - left + 1);
+        }
+        return maxlength;
+    }
+};
+**\
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        vector<int> last(256, -1);
+        int best = 0, left = 0;
+//sliding window method
+        for (int i = 0; i < s.size(); i++) {
+            char c = s[i];
+            if (last[c] >= left) {
+                left = last[c] + 1;
+            }
+            last[c] = i;
+            best = max(best, i - left + 1);
+        }
+        return best;
+    }
+}
+
+The core idea is to maintain a "window" [left, i] that represents the current substring being examined. The algorithm efficiently updates this window as it iterates through the string.
+
+    A vector<int> last(256, -1) acts as a map. It stores the most recent index for each of the 256 possible ASCII characters.
+
+    The left pointer marks the start of the current valid substring.
+
+    The for loop's index i acts as the right pointer, expanding the window one character at a time.
+
+The key optimization is that when a repeating character is found, the left pointer doesn't just increment one by one. It jumps directly to the position right after the last time that character was seen, effectively removing the duplicate and all characters before it from the window in a single step
+
+
+
