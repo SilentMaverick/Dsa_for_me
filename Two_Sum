@@ -1,0 +1,63 @@
+/*
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // for (size_t i = 0; i < nums.size() - 1; i++) {
+        //     for (size_t j = i + 1; j < nums.size(); j++) {
+        //         if (nums[i] + nums[j] == target) {
+        //             return {static_cast<int>(i), static_cast<int>(j)};
+        //         }
+        //     }
+        // }
+        // return {};
+        // time complexity O(n^2)
+        // vector<pair<int, int>> indexes;
+        // int cur_sum;
+
+        // for (int i = 0; i < nums.size(); i++) {
+        //     indexes.push_back({nums[i], i});
+        // }
+        // sort(indexes.begin(), indexes.end());
+
+        // for (int i = 0; i < nums.size() - 1; ) {
+        //     for (int j = nums.size() - 1; j > 0; ) {
+        //         cur_sum = indexes[i].first + indexes[j].first;
+        //         if (cur_sum < target) i++;
+        //         else if (cur_sum > target) j--;
+        //         else 
+        //             return {indexes[i].second, indexes[j].second};
+                
+        //     }
+        // }
+        // return {};
+
+        unordered_map <int, int> nums_map;
+        // int diff;
+        for (int i = 0; i < nums.size(); i++) {
+            int diff = target - nums[i];
+            if (nums_map.find(diff) != nums_map.end())
+                return {i, nums_map[diff]};
+            nums_map[nums[i]] = i;
+        }
+        
+        
+        return {};
+    }
+    
+};
+
+*/
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> num_map; // A mapping to store numbers and their indices
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i]; // Find the required number to reach the target
+            if (num_map.find(complement) != num_map.end()) {
+                return {num_map[complement], i}; // Return indices of the complement and current number
+            }
+            num_map[nums[i]] = i; // Store the number with its index
+        }
+        return {}; // This line is never reached due to the problem guarantee
+    }
+};
