@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+//detailing the all types of possibilities
+        if(numRows==1){
+            return s;
+        }
+        int x=2*numRows-2;
+        int k=x;
+        string ans="";
+
+        for(int i=0;i<numRows;i++){
+            for(int j=i;j<s.size();j+=x){
+                if(i==0 || i==numRows-1) ans+=s[j];
+                else{
+                    ans+=s[j];
+                    if(j+k<s.size())ans+=s[j+k];
+                }
+            }
+            k-=2;
+        }
+
+        return ans;
+    }
+};
