@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<int>> dp;
+
+    bool fun(string &s, string &p, int i, int j) {
+        int n = s.size(), m = p.size();
+
+        if (i == n && j == m) return true;
+        if (j == m) return false;
+
+        if (dp[i][j] != -1) return dp[i][j];
+
+        bool match = (i < n && (s[i] == p[j] || p[j] == '.'));
+
+        bool ans;
+        if (j + 1 < m && p[j + 1] == '*') {
+            ans = fun(s, p, i, j + 2) || (match && fun(s, p, i + 1, j));
+        } else {
+            ans = match && fun(s, p, i + 1, j + 1);
+        }
+
+        return dp[i][j] = ans;
+    }
+
+    bool isMatch(string s, string p) {
+        dp = vector<vector<int>>(s.size() + 1, vector<int>(p.size() + 1, -1));
+        return fun(s, p, 0, 0);
+    }
+};
