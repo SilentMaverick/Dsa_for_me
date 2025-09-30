@@ -1,0 +1,68 @@
+class Solution {
+public:
+    std::vector<std::string> letterCombinations(std::string digits) {
+        std::vector<std::string> result;
+        if (digits.empty()) {
+            return result;
+        }
+
+        std::unordered_map<char, std::string> mapping = {
+            {'2', "abc"}, {'3', "def"}, {'4', "ghi"},
+            {'5', "jkl"}, {'6', "mno"}, {'7', "pqrs"},
+            {'8', "tuv"}, {'9', "wxyz"}
+        };
+        std::function<void(int, std::string)> findCombinations;
+        
+        findCombinations = 
+            [&](int index, string currentCombination) {
+            if (index == digits.length()) {
+                result.push_back(currentCombination);
+                return;
+            }
+            char currentDigit = digits[index];
+            const std::string& letters = mapping.at(currentDigit);
+            for (char letter : letters) {
+                findCombinations(index + 1, currentCombination + letter);
+            }
+        };
+        findCombinations(0, "");
+
+        return result;
+    }
+};
+
+
+
+                          or
+
+class Solution {
+public:
+
+    string getStringFromDigit(char ch){
+        if(ch=='2') return "abc";
+        else if(ch=='3') return "def";
+        else if(ch=='4') return "ghi";
+        else if(ch== '5') return "jkl";
+        else if(ch=='6') return "mno";
+        else if(ch =='7') return "pqrs";
+        else if(ch =='8') return "tuv";
+        else if(ch=='9') return "wxyz";
+        return "";
+    }
+
+    void helper(int i , string digits, string temp_string,vector<string> &ans){
+        if(i==digits.length()) {
+            if(!temp_string.empty())ans.push_back(temp_string);
+            return;
+        }
+        for(auto s:getStringFromDigit(digits[i])){
+            helper(i+1,digits,temp_string+s,ans);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        helper(0,digits,"",ans);
+        return ans;
+        
+    }
+};
