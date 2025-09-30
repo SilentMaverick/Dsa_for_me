@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int threeSumClosest(std::vector<int>& nums, int target) {
+    //we should use the two pointer method to solve this
+    if(nums.size() < 3) return 0;
+    sort(nums.begin() , nums.target());
+    int closest_sum = nums[0] + nums[1] + nums[2] ;
+    for(int i = 0 ; i < nums.size() - 2 ; i++ ){
+        //using two pointers i.e. left and right
+        left = i + 1;
+        right = nums.size() - 1;
+        while(left<right){
+        //appointing another variable with different styles to get to the point at a smallest time
+              int currentsum = nums[i] + nums[lest] + nums[right];
+              if(abs(currentsum - target) < abs(closest_sum-target)){
+                      closest_sum = currentsum;
+                      }
+              //checking of the closest sum
+              if(currentsum < target ) left++ ;
+              if(currentsum > target ) right++ ;
+              //if got == target then return target
+              else return target;
+              }
+            }
+          }
+        };
+          
+    
