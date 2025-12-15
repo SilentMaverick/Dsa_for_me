@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void fore(int i,vector<int>& v,int k,vector<int> &curr,vector<vector<int>> &ans){
+//k == target ; v == candidates ; i == index ; curr == current sum ; 
+        if(i>=v.size()){
+            if(k==0){
+            ans.push_back(curr);
+              }
+            return;
+        }
+        if(k-v[i]>=0){
+            curr.push_back(v[i]);
+            fore(i,v,k-v[i],curr,ans);
+            curr.pop_back();
+            fore(i+1,v,k,curr,ans);
+        }
+        else{
+            fore(i+1,v,k,curr,ans);
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> curr;
+        fore(0,candidates,target,curr,ans);
+        return ans;
+    }
+};
